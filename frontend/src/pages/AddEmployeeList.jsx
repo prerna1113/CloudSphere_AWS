@@ -42,17 +42,9 @@ function AddEmployee() {
   e.preventDefault();
 
   try {
+    await api.post("/employees", formData);
 
-    const updatedData = {
-      ...formData,
-      joining_date: formData.joining_date
-        ? formData.joining_date.split("T")[0]
-        : null
-    };
-
-    await api.put(`/employees/${id}`, updatedData);
-
-    alert("Employee Updated Successfully");
+    alert("Employee added successfully");
     navigate("/employees");
 
   } catch (error) {
