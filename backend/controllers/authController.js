@@ -72,7 +72,7 @@ const login = (req, res) => {
       //   user.password
       // )
       // ;
-      console.log("Email from request:", email);
+ console.log("Email from request:", email);
 console.log("Password from request:", password);
 console.log("User from DB:", user);
 const isMatch = password === user.password;
