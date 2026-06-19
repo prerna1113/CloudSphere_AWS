@@ -1,34 +1,13 @@
 services:
 
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-
-    environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: cloudsphere_hrms
-
-    ports:
-      - "3307:3306"
-
-    volumes:
-      - mysql_data:/var/lib/mysql
-
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot123"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-
   backend:
     build: ./backend
 
     ports:
       - "5000:5000"
 
-    depends_on:
-      mysql:
-        condition: service_healthy
+    env_file:
+      - ./backend/.env
 
   frontend:
     build: ./frontend
@@ -38,6 +17,3 @@ services:
 
     depends_on:
       - backend
-
-volumes:
-  mysql_data:
